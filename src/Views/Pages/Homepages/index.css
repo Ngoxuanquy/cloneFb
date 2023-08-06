@@ -1,0 +1,76 @@
+/* styles.css */
+.scroll-container {
+    /* overflow-y: scroll; */
+    /* position: fixed; */
+    /* height: 100vh; */
+}
+
+/* Scrollbar Track */
+.scroll-container::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
+    background-color: #F5F5F5;
+}
+
+/* Scrollbar Thumb */
+.scroll-container::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+}
+
+/* Scrollbar Size */
+.scroll-container::-webkit-scrollbar {
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+
+/* ---- grid ---- */
+
+.grid {
+    /* background: #EEE; */
+    max-width: 1200px;
+    display: flex;
+    flex-direction: row;
+}
+
+/* clearfix */
+.grid:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+/* ---- grid-item ---- */
+
+.grid-item {
+    width: 160px;
+    height: 120px;
+    float: left;
+    /* background: #D26; */
+    /* border: 2px solid #333; */
+    border-color: hsla(0, 0%, 0%, 0.1);
+    border-radius: 5px;
+}
+
+.grid-item--width2 {
+    width: 450px;
+}
+
+.grid-item--width3 {
+    width: 480px;
+}
+
+.grid-item--width4 {
+    width: 640px;
+}
+
+.grid-item--height2 {
+    height: 450px;
+}
+
+.grid-item--height3 {
+    height: 225px;
+}
+
+.grid-item--height4 {
+    height: 360px;
+}

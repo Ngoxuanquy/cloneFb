@@ -1,0 +1,38 @@
+/* styles.css */
+.scroll-containe-left {
+    overflow-y: scroll;
+    position: fixed;
+    height: 100vh;
+}
+
+/* Scrollbar Track */
+.scroll-containe-left::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
+    background-color: #F5F5F5;
+}
+
+/* Scrollbar Thumb */
+.scroll-containe-left::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+}
+
+/* Scrollbar Size */
+.scroll-containe-left::-webkit-scrollbar {
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+.Text_Segmented:hover {
+    background-color: red;
+}
+
+
+@media only screen and (max-width: 1224px) {
+    .scroll-containe-left {
+        display: none;
+    }
+
+    .scroll-containe-rigth {
+        display: none;
+    }
+}
