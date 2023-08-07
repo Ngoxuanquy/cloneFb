@@ -130,7 +130,6 @@ const Header = () => {
         setIsModalOpenSearch(false);
     };
 
-    console.log(seachApis)
 
     const handleSegmentedChange = (value) => {
         navigate(`/${value}`);
@@ -165,7 +164,8 @@ const Header = () => {
                 return data.json()
             })
             .then((data) => {
-                const filteredData = data.metadata.filter((user) => user?._id !== cleanId);
+                console.log({ data })
+                const filteredData = data?.metadata?.filter((user) => user?._id !== cleanId);
                 setApiUsers(filteredData)
             })
     }, [])

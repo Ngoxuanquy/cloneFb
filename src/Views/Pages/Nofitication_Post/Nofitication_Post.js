@@ -61,7 +61,6 @@ function Nofitication_Post() {
 
         };
 
-        console.log({ post_id })
 
         // tạo thêm bài viết
         fetch(URL + '/getPostById/' + post_id, requestOptions)
@@ -69,7 +68,6 @@ function Nofitication_Post() {
                 return data.json()
             })
             .then((data) => {
-                console.log({ data })
                 setApiPost(data?.metadata)
             })
     }
@@ -79,7 +77,6 @@ function Nofitication_Post() {
         getApiAllPost()
     }, [post_id])
 
-    console.log({ apiPosts })
 
 
     const content = (post_id, user_id) => {
@@ -121,7 +118,6 @@ function Nofitication_Post() {
         const cleanId = id ? id.replace(/^"|"$/g, '') : '';
         const cleanName = name ? name.replace(/^"|"$/g, '') : '';
 
-        console.log({ cleanName })
 
 
         const requestOptions = {
@@ -193,7 +189,6 @@ function Nofitication_Post() {
             {
                 // setApiFriend(apis?.filter(item => data.metadata.includes(item.user_id)))
                 const body = apis?.filter(item => data.metadata?.includes(item.user_id));
-                console.log({ body })
 
                 setData(body);
                 setLoading(false);

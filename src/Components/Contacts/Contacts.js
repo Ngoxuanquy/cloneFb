@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 export default function Contacts({ contacts, changeChat, groupMess }) {
 
-  console.log({ groupMess })
 
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
@@ -21,13 +20,13 @@ export default function Contacts({ contacts, changeChat, groupMess }) {
     setApis(combinedArray)
   }, [groupMess]);
 
-  console.log({ apis })
 
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
     changeChat(contact);
   };
 
+  console.log({ apis })
 
 
   return (
@@ -40,7 +39,7 @@ export default function Contacts({ contacts, changeChat, groupMess }) {
         <div className="contacts" style={{
           height: '530px'
         }} >
-          {apis.map((contact, index) => {
+          {apis?.map((contact, index) => {
             return (
               <div
                 key={contact._id}

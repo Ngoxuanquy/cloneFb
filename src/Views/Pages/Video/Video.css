@@ -1,0 +1,10 @@
+
+@media only screen and (max-width: 1224px) {
+    .scroll-containe-left {
+        display: none;
+    }
+
+    .scroll-containe-rigth {
+        display: none;
+    }
+}

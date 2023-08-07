@@ -54,7 +54,6 @@ function Post({ socket }) {
             });
     }
 
-    console.log({ apis })
 
 
     const [friends, setFriend] = useState([])
@@ -155,7 +154,6 @@ function Post({ socket }) {
         const cleanId = id ? id.replace(/^"|"$/g, '') : '';
         const cleanName = name ? name.replace(/^"|"$/g, '') : '';
 
-        console.log({ cleanName })
 
 
         const requestOptions = {
@@ -227,7 +225,6 @@ function Post({ socket }) {
             {
                 // setApiFriend(apis?.filter(item => data.metadata.includes(item.user_id)))
                 const body = apis?.filter(item => data.metadata?.includes(item.user_id));
-                console.log({ body })
 
                 setData(body);
                 setLoading(false);

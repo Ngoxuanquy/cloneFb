@@ -129,7 +129,6 @@ function ProfilePages() {
 
             })
             .then((data) => {
-                console.log({ data })
                 setUser(data.metadata)
             })
     }
@@ -278,7 +277,6 @@ function ProfilePages() {
 
     const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
 
-    console.log({ users })
 
     return (
         <div>

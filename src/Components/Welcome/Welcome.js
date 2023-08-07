@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Button, Modal } from "antd";
+import { Button, Modal, Input } from "antd";
 import Cookies from 'js-cookie';
 
 export default function Welcome() {
@@ -19,6 +19,7 @@ export default function Welcome() {
   const URL = process.env.REACT_APP_URL;
 
   const [apiUses, setApiUsers] = useState([])
+
   useEffect(() => {
     const token = Cookies.get('accessToken');
     const id = Cookies.get('id');
@@ -27,8 +28,6 @@ export default function Welcome() {
     const cleanedJwtString = token ? token.replace(/^"|"$/g, '') : "";
     const cleanId = id ? id.replace(/^"|"$/g, '') : "";
     const cleanName = name ? name.replace(/^"|"$/g, '') : "";
-
-
 
     const requestOptions = {
       method: 'POST',
@@ -44,6 +43,7 @@ export default function Welcome() {
     // tạo thêm bài viết
     fetch(URL + '/user/getFullUser', requestOptions)
       .then((data) => {
+        console.log({ data })
         return data.json()
       })
       .then((data) => {
@@ -76,7 +76,8 @@ export default function Welcome() {
     setNewArray(pre => [...pre, apiUse])
   }
 
-  console.log({ newArrays })
+  //khai báo tên group
+  const [nameGroup, setNameGroup] = useState([])
 
   const handleOk = () => {
     const token = Cookies.get('accessToken');
@@ -100,7 +101,7 @@ export default function Welcome() {
         "authorization": cleanedJwtString
       },
       body: JSON.stringify({
-        payload: [...newArrays, data]
+        payload: [...newArrays, data, { nameGroup: nameGroup }]
       })
     };
 
@@ -108,11 +109,11 @@ export default function Welcome() {
     fetch(URL + '/groupMess/addGroup/', requestOptions)
       .then(() => {
         setIsModalOpen(false);
+        // window.location.reload();
 
       })
-
-
   }
+
 
   return (
     <Container>
@@ -161,8 +162,18 @@ export default function Welcome() {
 
           <div>
             <div>
-              <div className="text-[17px] mt-[20px]">
-                Những người đã add
+              <div className="mt-[20px] text-[20px]">
+                <div>
+                  Tên Group
+                </div>
+                <div className="mt-[10px]">
+                  <Input
+                    onChange={(e) => setNameGroup(e.target.value)}
+                  />
+                </div>
+                <div className="text-[17px] mt-[20px]">
+                  Những người đã add
+                </div>
               </div>
               <div>
                 {newArrays.map(newArray => (

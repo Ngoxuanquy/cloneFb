@@ -308,12 +308,10 @@ function ProfilePages() {
                 // window.location.reload();
                 ApiAddFriend();
 
-                console.log(data)
             })
     }
 
     const content = (id) => {
-        console.log(id)
         return (
             <div>
                 <div>
@@ -358,7 +356,6 @@ function ProfilePages() {
     }
 
     const content_huyKB = (id) => {
-        console.log(id)
         return (
             <div>
                 <div>
@@ -372,7 +369,6 @@ function ProfilePages() {
 
     const handerClick_huyKB = (youId) => {
 
-        console.log({ youId })
         const token = Cookies.get('accessToken');
         const id = Cookies.get('id');
         const name = Cookies.get('name');

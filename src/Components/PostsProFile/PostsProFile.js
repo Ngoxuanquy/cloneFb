@@ -70,7 +70,6 @@ function PostsProFile({ apis }) {
         const cleanId = id ? id.replace(/^"|"$/g, '') : '';
         const cleanName = name ? name.replace(/^"|"$/g, '') : '';
 
-        console.log({ cleanName })
 
 
         const requestOptions = {
@@ -142,7 +141,6 @@ function PostsProFile({ apis }) {
             {
                 // setApiFriend(apis?.filter(item => data.metadata.includes(item.user_id)))
                 const body = apis?.filter(item => data.metadata?.includes(item.user_id));
-                console.log({ body })
 
                 setData(body);
                 setLoading(false);

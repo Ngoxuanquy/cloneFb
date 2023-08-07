@@ -33,7 +33,6 @@ export default function ChatContainer({ currentChat, socket }) {
   }, []);
 
 
-  console.log({ socketGroup })
 
   const getApiMess = () => {
     const token = Cookies.get('accessToken');
@@ -74,9 +73,7 @@ export default function ChatContainer({ currentChat, socket }) {
     getApiMess()
   }, [currentChat || socketGroup]);
 
-  console.log(currentChat.array_Id?.length !== undefined)
 
-  console.log({ currentChat })
 
   const handleSendMsg = async (msg) => {
 
@@ -149,14 +146,12 @@ export default function ChatContainer({ currentChat, socket }) {
 
     msgs.push({ fromSelf: true, message: msg });
 
-    console.log({ msgs })
 
     setMessages(msgs);
     getApiMess()
 
   };
 
-  console.log({ socket })
 
   const [notifications, setNotification] = useState([])
 

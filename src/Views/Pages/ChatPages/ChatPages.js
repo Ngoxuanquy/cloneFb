@@ -10,6 +10,7 @@ import Contacts from "../../../Components/Contacts/Contacts";
 import Welcome from '../../../Components/Welcome/Welcome'
 // import Header from "../../../Components/Header/Header.js";
 import Header from "../../../Components/Header/Header"
+import { Spin, } from 'antd';
 
 export default function ChatPages() {
 
@@ -19,6 +20,7 @@ export default function ChatPages() {
     const [currentChat, setCurrentChat] = useState();
     const [currentUser, setCurrentUser] = useState();
     const URL = process.env.REACT_APP_URL;
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (!localStorage.getItem("chat-app-current-user")) {
@@ -41,8 +43,6 @@ export default function ChatPages() {
         }
     }, [currentUser]);
 
-
-    console.log({ socket })
 
     // useEffect(async () => {
     //     if (currentUser) {
@@ -84,24 +84,29 @@ export default function ChatPages() {
                 "x-client-id": cleanId,
                 "authorization": cleanedJwtString
             },
-
         };
+
+        console.log({ requestOptions })
 
         // tạo thêm bài viết
         fetch(URL + '/user/getFullUser', requestOptions)
+            .then((data) => data.json())
             .then((data) => {
-                return data.json()
+                console.log({ data })
+                const filteredData = data?.metadata?.filter((user) => user?._id !== cleanId) || [];
+                setApiUsers(filteredData);
             })
-            .then((data) => {
-                const filteredData = data.metadata?.filter((user) => user._id !== cleanId);
-                setApiUsers(filteredData)
-            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
+
 
         fetch(URL + '/groupMess/getGroup/' + cleanId, requestOptions)
             .then((data) => {
                 return data.json()
             })
             .then((data) => {
+                setLoading(false)
                 setGroupMess(data.metadata)
             })
     }, [])
@@ -109,6 +114,20 @@ export default function ChatPages() {
 
     return (
         <div className=" ">
+            {loading == true &&
+                <Spin spinning={loading} delay={500} className='z-100 w-[90%] flex justify-center items-center h-[100%] '
+                    style={{
+                        position: 'fixed',
+                        width: '100%',
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        height: '100%',
+                        zIndex: 1000000,
+                        top: 0,
+                        left: 0,
+                        right: 0
+                    }}
+                />
+            }
             <Header />
             <Container>
                 <div className="container">

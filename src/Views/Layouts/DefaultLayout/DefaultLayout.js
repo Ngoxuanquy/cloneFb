@@ -150,8 +150,6 @@ const PrivateDefaultLayout = ({ children }) => {
     };
 
 
-    console.log(seachApis)
-
     const handleSegmentedChange = (value) => {
         navigate(`/${value}`);
     };
@@ -274,9 +272,21 @@ const PrivateDefaultLayout = ({ children }) => {
     // }, [socket]);
 
     //xuwr lys nhuw nhaans vaof thanh thong baos
-    const handerNofication = (post_id) => {
+    const handerNofication = (post_id, notifications) => {
+        console.log({ notifications })
         setIsModalOpenNotifition(false)
         navigate("/Nofitication_Post/" + post_id)
+
+        if (notifications?.type == "thả cảm xúc" || notifications?.type == "Bình luận") {
+            navigate('/Nofitication_Post/' + notifications.post_id)
+        }
+        else if (notifications?.type == "Kết Bạn") {
+            navigate('/Friend/' + notifications.post_id)
+
+        }
+        else {
+            navigate("/Chat/" + notifications.fromID);
+        }
     }
 
     return (
@@ -435,8 +445,8 @@ const PrivateDefaultLayout = ({ children }) => {
                                             marginTop: '20px'
                                         }}>
                                             {
-                                                data.map(nofitication => (
-                                                    <button onClick={() => handerNofication(nofitication.post_id)}>
+                                                data?.map(nofitication => (
+                                                    <button onClick={() => handerNofication(nofitication.post_id, nofitication)}>
                                                         <div className=' hover:bg-[#eeeeee] p-[10px] mt-[10px] rounded-lg'>
                                                             <div>
                                                                 <span>

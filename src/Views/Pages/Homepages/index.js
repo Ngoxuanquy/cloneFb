@@ -147,7 +147,7 @@ function Index() {
         formData.append("upload_preset", PRESET_NAME)
         formData.append("folder", FOLDER_NAME)
 
-        fileList.map(img => {
+        fileList?.map(img => {
             formData.append('file', img?.thumbUrl)
         })
 
@@ -265,13 +265,11 @@ function Index() {
 
     }
 
-    // console.log({ socket })
 
     const [notifications, setNotifications] = useState([]);
 
     useEffect(() => {
         socket.current.on("getNotification", (data) => {
-            console.log({ data })
             createNofitication(data)
             showNotification(data)
             setNotifications((prev) => [...prev, data]);
@@ -280,6 +278,8 @@ function Index() {
 
 
     const showNotification = (notifications) => {
+
+        console.log(notifications?.type)
         notification.info({
             message: `Notification`,
             description: (
@@ -293,18 +293,17 @@ function Index() {
                 if (notifications?.type == "thả cảm xúc" || notifications?.type == "Bình luận") {
                     navigate('/Nofitication_Post/' + notifications.senderName)
                 }
-                if (notifications?.type == "Kết Bạn") {
+                else if (notifications?.type == "Kết Bạn") {
                     navigate('/Friend/' + notifications.senderName)
 
                 }
                 else {
-                    navigate("/Chat/" + notifications.fromID);
+                    navigate("/Messages");
                 }
             },
         });
     };
 
-    console.log({ notifications })
     //xử lý story
     const [storysAll, setStoryAll] = useState([])
     useEffect(() => {

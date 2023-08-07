@@ -10,7 +10,6 @@ import { Button, Modal, Upload } from 'antd';
 import Cookies from 'js-cookie';
 import axios from 'axios'
 import { Alert, Spin, Switch } from 'antd';
-import ReactLoading from 'react-loading';
 import ImageGallery from "react-image-gallery";
 import 'react-image-gallery/styles/css/image-gallery.css';
 import Stories from 'react-insta-stories';
@@ -121,7 +120,6 @@ function Index({ images, storys }) {
 
         const img = await uploadImage();
 
-        console.log({ img })
 
         const requestOptions = {
             method: 'POST',
@@ -148,7 +146,6 @@ function Index({ images, storys }) {
             .then((data) => {
                 setLoading(false)
 
-                console.log(data.metadata)
             })
     }
 
@@ -167,7 +164,6 @@ function Index({ images, storys }) {
         },
     ];
 
-    console.log({ storys })
 
     //khai baos story
     const [stories, setStories] = useState([])
@@ -182,7 +178,6 @@ function Index({ images, storys }) {
             return alert("Tin này k tồn tại!!")
         }
 
-        console.log(storys[index])
 
         const currentStory = storys[index];
         // if (!currentStory || !currentStory.content) {
@@ -210,7 +205,6 @@ function Index({ images, storys }) {
     };
 
 
-    console.log(apiImages)
 
     const handleCancelStory = () => {
         setIsModalOpenStory(false);

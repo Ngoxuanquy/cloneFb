@@ -7,14 +7,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 // import dotenv from 'dotenv';
 // dotenv.config();
+import { Spin } from 'antd';
+
 const App = () => {
 
     const URL = process.env.REACT_APP_URL;
 
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+
 
     const particlesInit = useCallback(async (engine) => {
-        console.log(engine);
 
         // you can initialize the tsParticles instance (engine) here, adding custom shapes or presets
         // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
@@ -24,21 +27,18 @@ const App = () => {
     }, []);
 
     const particlesLoaded = useCallback(async (container) => {
-        // console.log(container);
     }, []);
 
     //khai báo email, pass
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    console.log(email)
 
     //xử lý sự kiện nhấn nút đăng ký
 
     const handerSubmit = () => {
 
-        console.log(URL)
-
+        setLoading(true)
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -58,7 +58,6 @@ const App = () => {
                 return data.json()
             })
             .then((data) => {
-                console.log(data.metadata)
                 // if (data.metadata.shop.verify == true) {
                 //     alert("Tài khoản đã đăng nhập ở 1 nơi khác!!!")
                 // }
@@ -76,13 +75,14 @@ const App = () => {
                     Cookies.set('name', JSON.stringify(name), { expires: 7 });
                     localStorage.setItem("chat-app-current-user", JSON.stringify(data.metadata.shop))
 
-                    // console.log('aa')
                     Cookies.set('id', JSON.stringify(data.metadata.shop._id), { expires: 7 });
                     Cookies.set('img', JSON.stringify(data.metadata.shop.img), { expires: 7 });
                     Cookies.set('timeeexp', JSON.stringify(data.metadata.tokens.timeExp), { expires: 7 });
                     // window.location = "/";
                     // if (data.metadata.shop.roles[0] == "SHOP") {
                     // alert(data.metadata.status)
+                    setLoading(false)
+
                     navigate('/')
                     // }
                     // else {
@@ -101,6 +101,20 @@ const App = () => {
 
     return (
         <>
+            {loading == true &&
+                <Spin spinning={loading} delay={500} className='z-100 w-[90%] flex justify-center items-center h-[100%] '
+                    style={{
+                        position: 'fixed',
+                        width: '100%',
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        height: '100%',
+                        zIndex: 1000000,
+                        top: 0,
+                        left: 0,
+                        right: 0
+                    }}
+                />
+            }
             <Particles
                 id="tsparticles"
                 init={particlesInit}

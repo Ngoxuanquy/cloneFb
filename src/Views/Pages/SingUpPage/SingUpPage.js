@@ -4,11 +4,13 @@ import { loadSlim } from "tsparticles-slim";
 // import { LogoGoogle, LogoFacebook, LogoApple } from 'react-ionicons';
 import './SingUpPage.css'
 import { Link, useNavigate } from 'react-router-dom';
+import { Spin } from 'antd';
 
 
 const SingUpPage = () => {
 
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
 
     const particlesInit = useCallback(async (engine) => {
@@ -22,7 +24,6 @@ const SingUpPage = () => {
     }, []);
 
     const particlesLoaded = useCallback(async (container) => {
-        console.log(container);
     }, []);
 
     //xử lý sự kiện nhấn nút đăng ký
@@ -35,8 +36,8 @@ const SingUpPage = () => {
     const [number, setNumber] = useState('')
 
     function handerSubmit() {
+        setLoading(true)
 
-        console.log(process.env.REACT_APP_KEY)
 
         if (pass === re_Pass) {
             const requestOptions = {
@@ -59,10 +60,11 @@ const SingUpPage = () => {
                     return data.json()
                 })
                 .then((data) => {
-                    console.log(data)
                     alert(data.metadata.msg || "Đăng ký thành công!!")
                     if (data.metadata.msg != "Error: Shop already registered") {
                         window.location = "/login"
+                        setLoading(false)
+
                     }
                     else {
                         return;
@@ -77,6 +79,20 @@ const SingUpPage = () => {
     }
     return (
         <>
+            {loading == true &&
+                <Spin spinning={loading} delay={500} className='z-100 w-[90%] flex justify-center items-center h-[100%] '
+                    style={{
+                        position: 'fixed',
+                        width: '100%',
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        height: '100%',
+                        zIndex: 1000000,
+                        top: 0,
+                        left: 0,
+                        right: 0
+                    }}
+                />
+            }
             <Particles
                 id="tsparticles"
                 init={particlesInit}
